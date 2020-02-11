@@ -1,0 +1,1704 @@
+{
+    "name": "Shimizu-san-ver2",
+    "components": [
+        {
+            "name": "/AccMicrobit",
+            "graph": {
+                "connections": [
+                    {
+                        "fromId": "2de67ec6-db45-7a07-42a5-388fdc814ac6",
+                        "fromProperty": "connect",
+                        "toId": "82a98ee7-7a11-c3f3-69b8-8cb2b9c71c37",
+                        "toProperty": "connect"
+                    },
+                    {
+                        "fromId": "2de67ec6-db45-7a07-42a5-388fdc814ac6",
+                        "fromProperty": "disconnect",
+                        "toId": "82a98ee7-7a11-c3f3-69b8-8cb2b9c71c37",
+                        "toProperty": "disconnect"
+                    },
+                    {
+                        "fromId": "82a98ee7-7a11-c3f3-69b8-8cb2b9c71c37",
+                        "fromProperty": "accX",
+                        "toId": "070def06-cad9-a9d9-be13-3ce7c4d4bc5c",
+                        "toProperty": "accX"
+                    },
+                    {
+                        "fromId": "82a98ee7-7a11-c3f3-69b8-8cb2b9c71c37",
+                        "fromProperty": "accY",
+                        "toId": "070def06-cad9-a9d9-be13-3ce7c4d4bc5c",
+                        "toProperty": "accY"
+                    },
+                    {
+                        "fromId": "82a98ee7-7a11-c3f3-69b8-8cb2b9c71c37",
+                        "fromProperty": "accZ",
+                        "toId": "070def06-cad9-a9d9-be13-3ce7c4d4bc5c",
+                        "toProperty": "accZ"
+                    }
+                ],
+                "roots": [
+                    {
+                        "id": "82a98ee7-7a11-c3f3-69b8-8cb2b9c71c37",
+                        "type": "Javascript2",
+                        "x": -359.46734439568166,
+                        "y": 350.21912753826075,
+                        "parameters": {
+                            "code": "//micro:bit BLE UUID\nvar ACCELEROMETERSERVICE_SERVICE_UUID       = 'e95d0753-251d-470a-a062-fa1922dfa9a8';\nvar ACCELEROMETERDATA_CHARACTERISTIC_UUID   = 'e95dca4b-251d-470a-a062-fa1922dfa9a8';\nvar accelerometer_device;\nvar accelerometer_characteristic;\nvar accX,accY,accZ;\n    \ndefine({\n\t// The input ports of the Javascript node, name of input and type\n\tinputs:{\n\t    // ExampleInput:'number',\n\t    // Available types are 'number', 'string', 'boolean', 'color' and 'signal',\n\t    connect:'signal',\n\t    disconnect:'signal',\n\t    mySignal:\"signal\"\n\t},\n\t\n\t// The output ports of the Javascript node, name of output and type\n\toutputs:{\n\t    // ExampleOutput:'string',\n\t    accX: \"number\",\n\t    accY: \"number\",\n\t    accZ: \"number\"\n\t},\n\t\n\tconnect:function(inputs,outputs) {\n\t\t    navigator.bluetooth.requestDevice({\n            filters: [{\n              namePrefix: 'BBC micro:bit',\n            }],\n            optionalServices: [ACCELEROMETERSERVICE_SERVICE_UUID],\n            \n          })\n          .then(device => {\n            accelerometer_device = device;\n            console.log(\"device\", device);\n            return device.gatt.connect();\n          })\n          //ACCELEROMETER\n          .then(server =>{\n            console.log(\"server\", server)\n            return server.getPrimaryService(ACCELEROMETERSERVICE_SERVICE_UUID);\n          })\n          .then(service => {\n            console.log(\"service\", service)\n            return service.getCharacteristic(ACCELEROMETERDATA_CHARACTERISTIC_UUID)\n          })\n          .then(chara => {\n            console.log(\"ACCELEROMETER:\", chara)\n            console.log(\"BLE接続が完了しました。\");\n            characteristic = chara;\n            characteristic.startNotifications();\n            characteristic.addEventListener('characteristicvaluechanged',onAccelerometerValueChanged);\n          })  \n          .catch(error => {\n            console.log(\"BLE接続に失敗しました。もう一度試してみてください\");\n            console.log(error);\n          });    \n\t},\n\t\n\tdisconnect:function(inputs,outputs) {\n\t\tif (!accelerometer_device || !accelerometer_device.gatt.connected) return ;\n        accelerometer_device.gatt.disconnect();\n        console.log(\"BLE接続を切断しました。\");\n\t},\n\t\n\tchange:function(inputs,outputs) {\n\t\tthis.runNextFrame();\n\t\toutputs.accX = accX;\n\t    this.flagOutputDirty(\"accX\");\n\t    outputs.accY = accY;\n\t    this.flagOutputDirty(\"accY\");\n\t    outputs.accZ = accZ;\n\t    this.flagOutputDirty(\"accZ\");\n\t}\n})\n\nfunction onAccelerometerValueChanged(event) {\n    AcceleratorX = event.target.value.getUint16(0)/1000.0;\n    accX = AcceleratorX;\n    console.log(AcceleratorX);\n    \n    AcceleratorY = event.target.value.getUint16(2)/1000.0;\n    accY = AcceleratorY;\n\n    AcceleratorZ = event.target.value.getUint16(4)/1000.0;\n    accZ = AcceleratorZ;\n} \n\n\n\n",
+                            "useExternalFile": "no"
+                        },
+                        "ports": [],
+                        "dynamicports": [
+                            {
+                                "name": "connect",
+                                "plug": "input",
+                                "type": {
+                                    "name": "signal"
+                                },
+                                "group": "Inputs",
+                                "index": 2
+                            },
+                            {
+                                "name": "disconnect",
+                                "plug": "input",
+                                "type": {
+                                    "name": "signal"
+                                },
+                                "group": "Inputs",
+                                "index": 3
+                            },
+                            {
+                                "name": "mySignal",
+                                "plug": "input",
+                                "type": {
+                                    "name": "signal"
+                                },
+                                "group": "Inputs",
+                                "index": 4
+                            },
+                            {
+                                "name": "accX",
+                                "type": {
+                                    "name": "number"
+                                },
+                                "plug": "output",
+                                "group": "Outputs",
+                                "index": 5
+                            },
+                            {
+                                "name": "accY",
+                                "type": {
+                                    "name": "number"
+                                },
+                                "plug": "output",
+                                "group": "Outputs",
+                                "index": 6
+                            },
+                            {
+                                "name": "accZ",
+                                "type": {
+                                    "name": "number"
+                                },
+                                "plug": "output",
+                                "group": "Outputs",
+                                "index": 7
+                            }
+                        ],
+                        "children": []
+                    },
+                    {
+                        "id": "2de67ec6-db45-7a07-42a5-388fdc814ac6",
+                        "type": "Component Inputs",
+                        "x": -592.3845454806917,
+                        "y": 352.9506651303058,
+                        "parameters": {},
+                        "ports": [
+                            {
+                                "name": "connect",
+                                "plug": "output",
+                                "type": {
+                                    "name": "*"
+                                },
+                                "index": 1
+                            },
+                            {
+                                "name": "disconnect",
+                                "plug": "output",
+                                "type": {
+                                    "name": "*"
+                                },
+                                "index": 2
+                            }
+                        ],
+                        "dynamicports": [],
+                        "children": []
+                    },
+                    {
+                        "id": "070def06-cad9-a9d9-be13-3ce7c4d4bc5c",
+                        "type": "Component Outputs",
+                        "x": -105.36055966953381,
+                        "y": 357.4411952736798,
+                        "parameters": {},
+                        "ports": [
+                            {
+                                "name": "accX",
+                                "plug": "input",
+                                "type": {
+                                    "name": "*"
+                                },
+                                "index": 1
+                            },
+                            {
+                                "name": "accY",
+                                "plug": "input",
+                                "type": {
+                                    "name": "*"
+                                },
+                                "index": 2
+                            },
+                            {
+                                "name": "accZ",
+                                "plug": "input",
+                                "type": {
+                                    "name": "*"
+                                },
+                                "index": 3
+                            }
+                        ],
+                        "dynamicports": [],
+                        "children": []
+                    }
+                ]
+            }
+        },
+        {
+            "name": "/Sample",
+            "graph": {
+                "connections": [
+                    {
+                        "fromId": "a8ae9d6c-f148-2e21-58f6-7c3374d15fe1",
+                        "fromProperty": "onClick",
+                        "toId": "c9185ec1-0401-151e-8bcd-3cc6162634e6",
+                        "toProperty": "connect"
+                    },
+                    {
+                        "fromId": "c9185ec1-0401-151e-8bcd-3cc6162634e6",
+                        "fromProperty": "accX",
+                        "toId": "5f1e6b83-b3b9-7f65-410f-7f40cd0ded33",
+                        "toProperty": "accX"
+                    },
+                    {
+                        "fromId": "5f1e6b83-b3b9-7f65-410f-7f40cd0ded33",
+                        "fromProperty": "count",
+                        "toId": "f1810d2d-6453-8248-baa1-5be8dd7913f7",
+                        "toProperty": "increase"
+                    },
+                    {
+                        "fromId": "f1810d2d-6453-8248-baa1-5be8dd7913f7",
+                        "fromProperty": "currentCount",
+                        "toId": "a8ae9d6c-f148-2e21-58f6-7c3374d15fe1",
+                        "toProperty": "text"
+                    },
+                    {
+                        "fromId": "fc44db82-47d7-a9e4-2417-e6cf7e4f7f90",
+                        "fromProperty": "onClick",
+                        "toId": "da5a4ab8-b103-6fe1-fb8c-a36ff00e7bb5",
+                        "toProperty": "start"
+                    },
+                    {
+                        "fromId": "c6c86594-d389-4161-9813-0d26ae47b652",
+                        "fromProperty": "result",
+                        "toId": "a588beeb-589d-5aff-c4b6-bebde5948d63",
+                        "toProperty": "to-50"
+                    },
+                    {
+                        "fromId": "800a3da7-ace4-1130-62b2-76400241403d",
+                        "fromProperty": "result",
+                        "toId": "a588beeb-589d-5aff-c4b6-bebde5948d63",
+                        "toProperty": "to-100"
+                    },
+                    {
+                        "fromId": "af05fd25-2f9b-6e32-dc1a-037a9e87b934",
+                        "fromProperty": "result",
+                        "toId": "a588beeb-589d-5aff-c4b6-bebde5948d63",
+                        "toProperty": "to-150"
+                    },
+                    {
+                        "fromId": "f1810d2d-6453-8248-baa1-5be8dd7913f7",
+                        "fromProperty": "currentCount",
+                        "toId": "c6c86594-d389-4161-9813-0d26ae47b652",
+                        "toProperty": "num"
+                    },
+                    {
+                        "fromId": "f1810d2d-6453-8248-baa1-5be8dd7913f7",
+                        "fromProperty": "currentCount",
+                        "toId": "800a3da7-ace4-1130-62b2-76400241403d",
+                        "toProperty": "num"
+                    },
+                    {
+                        "fromId": "f1810d2d-6453-8248-baa1-5be8dd7913f7",
+                        "fromProperty": "currentCount",
+                        "toId": "af05fd25-2f9b-6e32-dc1a-037a9e87b934",
+                        "toProperty": "num"
+                    },
+                    {
+                        "fromId": "a588beeb-589d-5aff-c4b6-bebde5948d63",
+                        "fromProperty": "reached-50",
+                        "toId": "da5a4ab8-b103-6fe1-fb8c-a36ff00e7bb5",
+                        "toProperty": "level1"
+                    },
+                    {
+                        "fromId": "a588beeb-589d-5aff-c4b6-bebde5948d63",
+                        "fromProperty": "reached-100",
+                        "toId": "da5a4ab8-b103-6fe1-fb8c-a36ff00e7bb5",
+                        "toProperty": "level2"
+                    },
+                    {
+                        "fromId": "a588beeb-589d-5aff-c4b6-bebde5948d63",
+                        "fromProperty": "reached-150",
+                        "toId": "da5a4ab8-b103-6fe1-fb8c-a36ff00e7bb5",
+                        "toProperty": "level3"
+                    },
+                    {
+                        "fromId": "4ff12bd6-0060-00b8-2bda-b6ba925c8923",
+                        "fromProperty": "ypos",
+                        "toId": "484ab94c-531e-3c01-8986-c07eebd7202d",
+                        "toProperty": "transformY"
+                    },
+                    {
+                        "fromId": "f1810d2d-6453-8248-baa1-5be8dd7913f7",
+                        "fromProperty": "countChanged",
+                        "toId": "4ff12bd6-0060-00b8-2bda-b6ba925c8923",
+                        "toProperty": "to-up"
+                    },
+                    {
+                        "fromId": "4ff12bd6-0060-00b8-2bda-b6ba925c8923",
+                        "fromProperty": "reached-up",
+                        "toId": "9f6ff806-c5ca-4288-a6ab-c3e6fb87fc3b",
+                        "toProperty": "restart"
+                    },
+                    {
+                        "fromId": "9f6ff806-c5ca-4288-a6ab-c3e6fb87fc3b",
+                        "fromProperty": "timerFinished",
+                        "toId": "4ff12bd6-0060-00b8-2bda-b6ba925c8923",
+                        "toProperty": "to-down"
+                    },
+                    {
+                        "fromId": "f1c1505a-6247-4d97-79ba-28bd1a41525d",
+                        "fromProperty": "reached-big",
+                        "toId": "5c3e9833-c415-114b-8aab-88c743e20501",
+                        "toProperty": "restart"
+                    },
+                    {
+                        "fromId": "5c3e9833-c415-114b-8aab-88c743e20501",
+                        "fromProperty": "timerFinished",
+                        "toId": "f1c1505a-6247-4d97-79ba-28bd1a41525d",
+                        "toProperty": "to-small"
+                    },
+                    {
+                        "fromId": "105869ac-456b-b087-90f9-922d7f00d41b",
+                        "fromProperty": "timerFinished",
+                        "toId": "2aaed744-2fd9-ca63-9331-cbf4afbcb8ec",
+                        "toProperty": "increase"
+                    },
+                    {
+                        "fromId": "2aaed744-2fd9-ca63-9331-cbf4afbcb8ec",
+                        "fromProperty": "countChanged",
+                        "toId": "105869ac-456b-b087-90f9-922d7f00d41b",
+                        "toProperty": "restart"
+                    },
+                    {
+                        "fromId": "2aaed744-2fd9-ca63-9331-cbf4afbcb8ec",
+                        "fromProperty": "countChanged",
+                        "toId": "f1c1505a-6247-4d97-79ba-28bd1a41525d",
+                        "toProperty": "to-big"
+                    },
+                    {
+                        "fromId": "da5a4ab8-b103-6fe1-fb8c-a36ff00e7bb5",
+                        "fromProperty": "lap",
+                        "toId": "2aaed744-2fd9-ca63-9331-cbf4afbcb8ec",
+                        "toProperty": "increase"
+                    },
+                    {
+                        "fromId": "f1c1505a-6247-4d97-79ba-28bd1a41525d",
+                        "fromProperty": "siz",
+                        "toId": "b0af8b0e-abb0-6785-acc2-60f0b7d2c19f",
+                        "toProperty": "size"
+                    },
+                    {
+                        "fromId": "c1542816-0bdf-511f-cb4d-c033d33ac96f",
+                        "fromProperty": "currentCount",
+                        "toId": "90f28cab-47ce-a2a2-7b9c-9f587c77a06e",
+                        "toProperty": "count"
+                    },
+                    {
+                        "fromId": "da5a4ab8-b103-6fe1-fb8c-a36ff00e7bb5",
+                        "fromProperty": "lap",
+                        "toId": "c1542816-0bdf-511f-cb4d-c033d33ac96f",
+                        "toProperty": "increase"
+                    },
+                    {
+                        "fromId": "90f28cab-47ce-a2a2-7b9c-9f587c77a06e",
+                        "fromProperty": "result",
+                        "toId": "9b4c79d0-ad28-8408-f3c7-07f5691afd12",
+                        "toProperty": "play"
+                    },
+                    {
+                        "fromId": "c1542816-0bdf-511f-cb4d-c033d33ac96f",
+                        "fromProperty": "countChanged",
+                        "toId": "9b4c79d0-ad28-8408-f3c7-07f5691afd12",
+                        "toProperty": "reset"
+                    }
+                ],
+                "roots": [
+                    {
+                        "id": "fc44db82-47d7-a9e4-2417-e6cf7e4f7f90",
+                        "type": "Group",
+                        "x": 629.908183537211,
+                        "y": 300.92864492576393,
+                        "parameters": {
+                            "backgroundColor": "#F05C51"
+                        },
+                        "ports": [],
+                        "dynamicports": [],
+                        "children": [
+                            {
+                                "id": "a8ae9d6c-f148-2e21-58f6-7c3374d15fe1",
+                                "type": "Text",
+                                "x": 20,
+                                "y": 82,
+                                "parameters": {
+                                    "sizeMode": "contentSize",
+                                    "position": "absolute",
+                                    "alignX": "center",
+                                    "alignY": "bottom",
+                                    "fontSize": {
+                                        "value": 80,
+                                        "unit": "px"
+                                    },
+                                    "color": "#FFFFFF"
+                                },
+                                "ports": [],
+                                "dynamicports": [],
+                                "children": []
+                            },
+                            {
+                                "id": "b0af8b0e-abb0-6785-acc2-60f0b7d2c19f",
+                                "type": "Circle",
+                                "x": 20,
+                                "y": 184,
+                                "parameters": {
+                                    "position": "absolute",
+                                    "alignX": "center",
+                                    "alignY": "center",
+                                    "size": 400,
+                                    "fillColor": "#02E8F0",
+                                    "marginTop": {
+                                        "value": 0,
+                                        "unit": "px"
+                                    }
+                                },
+                                "ports": [],
+                                "dynamicports": [],
+                                "children": []
+                            },
+                            {
+                                "id": "484ab94c-531e-3c01-8986-c07eebd7202d",
+                                "type": "Image",
+                                "x": 20,
+                                "y": 266,
+                                "parameters": {
+                                    "src": "img/01.png",
+                                    "position": "absolute",
+                                    "alignX": "center",
+                                    "alignY": "center",
+                                    "sizeMode": "contentHeight",
+                                    "width": {
+                                        "value": 240,
+                                        "unit": "px"
+                                    }
+                                },
+                                "ports": [],
+                                "dynamicports": [],
+                                "children": []
+                            },
+                            {
+                                "id": "9b4c79d0-ad28-8408-f3c7-07f5691afd12",
+                                "type": "Video",
+                                "x": 686.108821941515,
+                                "y": 344.6737003669413,
+                                "parameters": {
+                                    "src": "come-on-1.wav",
+                                    "loop": false,
+                                    "reset": false,
+                                    "play": false,
+                                    "sizeMode": "explicit",
+                                    "width": {
+                                        "value": 2,
+                                        "unit": "px"
+                                    },
+                                    "height": {
+                                        "value": 2,
+                                        "unit": "px"
+                                    }
+                                },
+                                "ports": [],
+                                "dynamicports": [],
+                                "children": []
+                            }
+                        ]
+                    },
+                    {
+                        "id": "c9185ec1-0401-151e-8bcd-3cc6162634e6",
+                        "type": "/AccMicrobit",
+                        "x": 920.767253302313,
+                        "y": 358.6091650569641,
+                        "parameters": {},
+                        "ports": [],
+                        "dynamicports": [],
+                        "children": []
+                    },
+                    {
+                        "id": "5f1e6b83-b3b9-7f65-410f-7f40cd0ded33",
+                        "type": "Javascript2",
+                        "x": 1226.9314047604012,
+                        "y": 300.50860996966315,
+                        "parameters": {
+                            "code": "define({\n\tinputs:{\n      //Javascriptノードに、任意の入力ポートを指定できる。\n      //書き方は、「変数名:'データ型'」\n\t    accX:'number'\n\t},\n\toutputs:{\n      //Javascriptノードに、任意の出力ポートを指定できる\n\t    count:\"boolean\"\n\t},\n  //データ型「signal」を入力ポートに指定した場合、その任意のシグナルをトリガーとして関数を実行することができる。\n\tmySignal:function(inputs,outputs) {\n\t\tthis.previousValue = 0;\n\t\tthis.previoustime = Date.now();\n\t},\n\tchange:function(inputs,outputs) {\n\t\tvar currenttime = Date.now();\n\n\t\tif(Math.abs(inputs.accX - this.previousValue) >10 && inputs.accX <20 && currenttime - this.previoustime >500){\n\t\t    this.sendSignalOnOutput(\"count\");\n\t\t    this.previousValue = inputs.accX;\n\t\t    this.previoustime = currenttime;\n\t\t}\n\t}\n})"
+                        },
+                        "ports": [],
+                        "dynamicports": [
+                            {
+                                "name": "accX",
+                                "plug": "input",
+                                "type": {
+                                    "name": "number"
+                                },
+                                "group": "Inputs",
+                                "index": 2
+                            },
+                            {
+                                "name": "count",
+                                "type": {
+                                    "name": "boolean"
+                                },
+                                "plug": "output",
+                                "group": "Outputs",
+                                "index": 3
+                            }
+                        ],
+                        "children": []
+                    },
+                    {
+                        "id": "f1810d2d-6453-8248-baa1-5be8dd7913f7",
+                        "type": "Counter",
+                        "x": 910.3525708917022,
+                        "y": 634.5219986071598,
+                        "parameters": {},
+                        "ports": [],
+                        "dynamicports": [],
+                        "children": []
+                    },
+                    {
+                        "id": "da5a4ab8-b103-6fe1-fb8c-a36ff00e7bb5",
+                        "type": "/Ongaq",
+                        "x": -102.64000035044103,
+                        "y": 444.79079988942544,
+                        "parameters": {
+                            "apikey": ""
+                        },
+                        "ports": [],
+                        "dynamicports": [],
+                        "children": []
+                    },
+                    {
+                        "id": "58d35230-9044-e8ab-8e5e-9c819731361d",
+                        "type": "Script Downloader",
+                        "x": 921.9509806290445,
+                        "y": 281.37315834436913,
+                        "parameters": {
+                            "input 0": "ongaq.js"
+                        },
+                        "ports": [],
+                        "dynamicports": [],
+                        "children": []
+                    },
+                    {
+                        "id": "c6c86594-d389-4161-9813-0d26ae47b652",
+                        "type": "Expression",
+                        "x": 651.6740726735502,
+                        "y": 750.2356058375365,
+                        "parameters": {
+                            "expression": "num > 50"
+                        },
+                        "ports": [],
+                        "dynamicports": [
+                            {
+                                "name": "num",
+                                "type": "number",
+                                "plug": "input",
+                                "index": 2
+                            }
+                        ],
+                        "children": []
+                    },
+                    {
+                        "id": "800a3da7-ace4-1130-62b2-76400241403d",
+                        "type": "Expression",
+                        "x": 648.9092086401475,
+                        "y": 845.3891444966898,
+                        "parameters": {
+                            "expression": "num > 100"
+                        },
+                        "ports": [],
+                        "dynamicports": [
+                            {
+                                "name": "num",
+                                "type": "number",
+                                "plug": "input",
+                                "index": 2
+                            }
+                        ],
+                        "children": []
+                    },
+                    {
+                        "id": "af05fd25-2f9b-6e32-dc1a-037a9e87b934",
+                        "type": "Expression",
+                        "x": 647.2439210582204,
+                        "y": 979.9916592961736,
+                        "parameters": {
+                            "expression": "num > 150"
+                        },
+                        "ports": [],
+                        "dynamicports": [
+                            {
+                                "name": "num",
+                                "type": "number",
+                                "plug": "input",
+                                "index": 2
+                            }
+                        ],
+                        "children": []
+                    },
+                    {
+                        "id": "a588beeb-589d-5aff-c4b6-bebde5948d63",
+                        "type": "States",
+                        "x": 238.7413681015542,
+                        "y": 685.6410058167876,
+                        "parameters": {
+                            "states": "50,100,150,0",
+                            "values": "img",
+                            "duration-50": 0,
+                            "duration-100": 0,
+                            "duration-150": 0,
+                            "duration-0": 0,
+                            "startState": "0",
+                            "value-150-img": 3,
+                            "value-0-img": 0
+                        },
+                        "ports": [],
+                        "dynamicports": [
+                            {
+                                "type": {
+                                    "name": "number",
+                                    "allowConnectionsOnly": true
+                                },
+                                "plug": "output",
+                                "group": "Values",
+                                "name": "img",
+                                "index": 6
+                            },
+                            {
+                                "plug": "input",
+                                "type": "number",
+                                "group": "50 Values",
+                                "name": "value-50-img",
+                                "displayName": "img",
+                                "editorName": "50|img",
+                                "index": 7
+                            },
+                            {
+                                "plug": "input",
+                                "type": {
+                                    "name": "enum",
+                                    "enums": [
+                                        {
+                                            "value": "easeOut",
+                                            "label": "Ease Out"
+                                        },
+                                        {
+                                            "value": "easeIn",
+                                            "label": "Ease In"
+                                        },
+                                        {
+                                            "value": "linear",
+                                            "label": "Linear"
+                                        },
+                                        {
+                                            "value": "easeInOut",
+                                            "label": "Ease In Out"
+                                        },
+                                        {
+                                            "value": "cubicBezier",
+                                            "label": "Cubic Bezier"
+                                        }
+                                    ]
+                                },
+                                "default": "easeOut",
+                                "displayName": "Easing Curve",
+                                "group": "50 Transition",
+                                "name": "transition-50",
+                                "index": 8
+                            },
+                            {
+                                "plug": "input",
+                                "type": "number",
+                                "default": 300,
+                                "displayName": "Duration",
+                                "group": "50 Transition",
+                                "name": "duration-50",
+                                "index": 9
+                            },
+                            {
+                                "plug": "input",
+                                "type": {
+                                    "name": "boolean",
+                                    "allowConnectionsOnly": true
+                                },
+                                "displayName": "To 50",
+                                "name": "to-50",
+                                "group": "Go to state",
+                                "index": 10
+                            },
+                            {
+                                "plug": "output",
+                                "type": "boolean",
+                                "displayName": "At 50",
+                                "name": "at-50",
+                                "group": "Current state",
+                                "index": 11
+                            },
+                            {
+                                "plug": "output",
+                                "type": "signal",
+                                "displayName": "Has Reached 50",
+                                "name": "reached-50",
+                                "group": "Current state",
+                                "index": 12
+                            },
+                            {
+                                "plug": "input",
+                                "type": "number",
+                                "group": "100 Values",
+                                "name": "value-100-img",
+                                "displayName": "img",
+                                "editorName": "100|img",
+                                "index": 13
+                            },
+                            {
+                                "plug": "input",
+                                "type": {
+                                    "name": "enum",
+                                    "enums": [
+                                        {
+                                            "value": "easeOut",
+                                            "label": "Ease Out"
+                                        },
+                                        {
+                                            "value": "easeIn",
+                                            "label": "Ease In"
+                                        },
+                                        {
+                                            "value": "linear",
+                                            "label": "Linear"
+                                        },
+                                        {
+                                            "value": "easeInOut",
+                                            "label": "Ease In Out"
+                                        },
+                                        {
+                                            "value": "cubicBezier",
+                                            "label": "Cubic Bezier"
+                                        }
+                                    ]
+                                },
+                                "default": "easeOut",
+                                "displayName": "Easing Curve",
+                                "group": "100 Transition",
+                                "name": "transition-100",
+                                "index": 14
+                            },
+                            {
+                                "plug": "input",
+                                "type": "number",
+                                "default": 300,
+                                "displayName": "Duration",
+                                "group": "100 Transition",
+                                "name": "duration-100",
+                                "index": 15
+                            },
+                            {
+                                "plug": "input",
+                                "type": {
+                                    "name": "boolean",
+                                    "allowConnectionsOnly": true
+                                },
+                                "displayName": "To 100",
+                                "name": "to-100",
+                                "group": "Go to state",
+                                "index": 16
+                            },
+                            {
+                                "plug": "output",
+                                "type": "boolean",
+                                "displayName": "At 100",
+                                "name": "at-100",
+                                "group": "Current state",
+                                "index": 17
+                            },
+                            {
+                                "plug": "output",
+                                "type": "signal",
+                                "displayName": "Has Reached 100",
+                                "name": "reached-100",
+                                "group": "Current state",
+                                "index": 18
+                            },
+                            {
+                                "plug": "input",
+                                "type": "number",
+                                "group": "150 Values",
+                                "name": "value-150-img",
+                                "displayName": "img",
+                                "editorName": "150|img",
+                                "index": 19
+                            },
+                            {
+                                "plug": "input",
+                                "type": {
+                                    "name": "enum",
+                                    "enums": [
+                                        {
+                                            "value": "easeOut",
+                                            "label": "Ease Out"
+                                        },
+                                        {
+                                            "value": "easeIn",
+                                            "label": "Ease In"
+                                        },
+                                        {
+                                            "value": "linear",
+                                            "label": "Linear"
+                                        },
+                                        {
+                                            "value": "easeInOut",
+                                            "label": "Ease In Out"
+                                        },
+                                        {
+                                            "value": "cubicBezier",
+                                            "label": "Cubic Bezier"
+                                        }
+                                    ]
+                                },
+                                "default": "easeOut",
+                                "displayName": "Easing Curve",
+                                "group": "150 Transition",
+                                "name": "transition-150",
+                                "index": 20
+                            },
+                            {
+                                "plug": "input",
+                                "type": "number",
+                                "default": 300,
+                                "displayName": "Duration",
+                                "group": "150 Transition",
+                                "name": "duration-150",
+                                "index": 21
+                            },
+                            {
+                                "plug": "input",
+                                "type": {
+                                    "name": "boolean",
+                                    "allowConnectionsOnly": true
+                                },
+                                "displayName": "To 150",
+                                "name": "to-150",
+                                "group": "Go to state",
+                                "index": 22
+                            },
+                            {
+                                "plug": "output",
+                                "type": "boolean",
+                                "displayName": "At 150",
+                                "name": "at-150",
+                                "group": "Current state",
+                                "index": 23
+                            },
+                            {
+                                "plug": "output",
+                                "type": "signal",
+                                "displayName": "Has Reached 150",
+                                "name": "reached-150",
+                                "group": "Current state",
+                                "index": 24
+                            },
+                            {
+                                "plug": "input",
+                                "type": "number",
+                                "group": "0 Values",
+                                "name": "value-0-img",
+                                "displayName": "img",
+                                "editorName": "0|img",
+                                "index": 25
+                            },
+                            {
+                                "plug": "input",
+                                "type": {
+                                    "name": "enum",
+                                    "enums": [
+                                        {
+                                            "value": "easeOut",
+                                            "label": "Ease Out"
+                                        },
+                                        {
+                                            "value": "easeIn",
+                                            "label": "Ease In"
+                                        },
+                                        {
+                                            "value": "linear",
+                                            "label": "Linear"
+                                        },
+                                        {
+                                            "value": "easeInOut",
+                                            "label": "Ease In Out"
+                                        },
+                                        {
+                                            "value": "cubicBezier",
+                                            "label": "Cubic Bezier"
+                                        }
+                                    ]
+                                },
+                                "default": "easeOut",
+                                "displayName": "Easing Curve",
+                                "group": "0 Transition",
+                                "name": "transition-0",
+                                "index": 26
+                            },
+                            {
+                                "plug": "input",
+                                "type": "number",
+                                "default": 300,
+                                "displayName": "Duration",
+                                "group": "0 Transition",
+                                "name": "duration-0",
+                                "index": 27
+                            },
+                            {
+                                "plug": "input",
+                                "type": {
+                                    "name": "boolean",
+                                    "allowConnectionsOnly": true
+                                },
+                                "displayName": "To 0",
+                                "name": "to-0",
+                                "group": "Go to state",
+                                "index": 28
+                            },
+                            {
+                                "plug": "output",
+                                "type": "boolean",
+                                "displayName": "At 0",
+                                "name": "at-0",
+                                "group": "Current state",
+                                "index": 29
+                            },
+                            {
+                                "plug": "output",
+                                "type": "signal",
+                                "displayName": "Has Reached 0",
+                                "name": "reached-0",
+                                "group": "Current state",
+                                "index": 30
+                            },
+                            {
+                                "plug": "input",
+                                "type": {
+                                    "name": "enum",
+                                    "enums": [
+                                        "50",
+                                        "100",
+                                        "150",
+                                        "0"
+                                    ]
+                                },
+                                "group": "States",
+                                "displayName": "Start at",
+                                "name": "startState",
+                                "default": "50",
+                                "index": 31
+                            }
+                        ],
+                        "children": []
+                    },
+                    {
+                        "id": "4ff12bd6-0060-00b8-2bda-b6ba925c8923",
+                        "type": "States",
+                        "x": 907.919945906016,
+                        "y": 485.4624511096281,
+                        "parameters": {
+                            "states": "up,down",
+                            "startState": "down",
+                            "values": "ypos",
+                            "value-up-ypos": -20,
+                            "value-down-ypos": 0
+                        },
+                        "ports": [],
+                        "dynamicports": [
+                            {
+                                "type": {
+                                    "name": "number",
+                                    "allowConnectionsOnly": true
+                                },
+                                "plug": "output",
+                                "group": "Values",
+                                "name": "ypos",
+                                "index": 6
+                            },
+                            {
+                                "plug": "input",
+                                "type": "number",
+                                "group": "up Values",
+                                "name": "value-up-ypos",
+                                "displayName": "ypos",
+                                "editorName": "up|ypos",
+                                "index": 7
+                            },
+                            {
+                                "plug": "input",
+                                "type": {
+                                    "name": "enum",
+                                    "enums": [
+                                        {
+                                            "value": "easeOut",
+                                            "label": "Ease Out"
+                                        },
+                                        {
+                                            "value": "easeIn",
+                                            "label": "Ease In"
+                                        },
+                                        {
+                                            "value": "linear",
+                                            "label": "Linear"
+                                        },
+                                        {
+                                            "value": "easeInOut",
+                                            "label": "Ease In Out"
+                                        },
+                                        {
+                                            "value": "cubicBezier",
+                                            "label": "Cubic Bezier"
+                                        }
+                                    ]
+                                },
+                                "default": "easeOut",
+                                "displayName": "Easing Curve",
+                                "group": "up Transition",
+                                "name": "transition-up",
+                                "index": 8
+                            },
+                            {
+                                "plug": "input",
+                                "type": "number",
+                                "default": 300,
+                                "displayName": "Duration",
+                                "group": "up Transition",
+                                "name": "duration-up",
+                                "index": 9
+                            },
+                            {
+                                "plug": "input",
+                                "type": {
+                                    "name": "boolean",
+                                    "allowConnectionsOnly": true
+                                },
+                                "displayName": "To up",
+                                "name": "to-up",
+                                "group": "Go to state",
+                                "index": 10
+                            },
+                            {
+                                "plug": "output",
+                                "type": "boolean",
+                                "displayName": "At up",
+                                "name": "at-up",
+                                "group": "Current state",
+                                "index": 11
+                            },
+                            {
+                                "plug": "output",
+                                "type": "signal",
+                                "displayName": "Has Reached up",
+                                "name": "reached-up",
+                                "group": "Current state",
+                                "index": 12
+                            },
+                            {
+                                "plug": "input",
+                                "type": "number",
+                                "group": "down Values",
+                                "name": "value-down-ypos",
+                                "displayName": "ypos",
+                                "editorName": "down|ypos",
+                                "index": 13
+                            },
+                            {
+                                "plug": "input",
+                                "type": {
+                                    "name": "enum",
+                                    "enums": [
+                                        {
+                                            "value": "easeOut",
+                                            "label": "Ease Out"
+                                        },
+                                        {
+                                            "value": "easeIn",
+                                            "label": "Ease In"
+                                        },
+                                        {
+                                            "value": "linear",
+                                            "label": "Linear"
+                                        },
+                                        {
+                                            "value": "easeInOut",
+                                            "label": "Ease In Out"
+                                        },
+                                        {
+                                            "value": "cubicBezier",
+                                            "label": "Cubic Bezier"
+                                        }
+                                    ]
+                                },
+                                "default": "easeOut",
+                                "displayName": "Easing Curve",
+                                "group": "down Transition",
+                                "name": "transition-down",
+                                "index": 14
+                            },
+                            {
+                                "plug": "input",
+                                "type": "number",
+                                "default": 300,
+                                "displayName": "Duration",
+                                "group": "down Transition",
+                                "name": "duration-down",
+                                "index": 15
+                            },
+                            {
+                                "plug": "input",
+                                "type": {
+                                    "name": "boolean",
+                                    "allowConnectionsOnly": true
+                                },
+                                "displayName": "To down",
+                                "name": "to-down",
+                                "group": "Go to state",
+                                "index": 16
+                            },
+                            {
+                                "plug": "output",
+                                "type": "boolean",
+                                "displayName": "At down",
+                                "name": "at-down",
+                                "group": "Current state",
+                                "index": 17
+                            },
+                            {
+                                "plug": "output",
+                                "type": "signal",
+                                "displayName": "Has Reached down",
+                                "name": "reached-down",
+                                "group": "Current state",
+                                "index": 18
+                            },
+                            {
+                                "plug": "input",
+                                "type": {
+                                    "name": "enum",
+                                    "enums": [
+                                        "up",
+                                        "down"
+                                    ]
+                                },
+                                "group": "States",
+                                "displayName": "Start at",
+                                "name": "startState",
+                                "default": "up",
+                                "index": 19
+                            }
+                        ],
+                        "children": []
+                    },
+                    {
+                        "id": "9f6ff806-c5ca-4288-a6ab-c3e6fb87fc3b",
+                        "type": "Timer",
+                        "x": 1086.7682468335233,
+                        "y": 498.89875395909246,
+                        "parameters": {},
+                        "ports": [],
+                        "dynamicports": [],
+                        "children": []
+                    },
+                    {
+                        "id": "f1c1505a-6247-4d97-79ba-28bd1a41525d",
+                        "type": "States",
+                        "x": 635.2019818742124,
+                        "y": 105.84464035776196,
+                        "parameters": {
+                            "states": "big,small",
+                            "values": "siz,2-img",
+                            "startState": "small",
+                            "value-big-siz": 400,
+                            "value-small-siz": 380,
+                            "duration-small": 250,
+                            "duration-big": 250,
+                            "value-big-2-img": 1,
+                            "value-small-2-img": 2
+                        },
+                        "ports": [],
+                        "dynamicports": [
+                            {
+                                "type": {
+                                    "name": "number",
+                                    "allowConnectionsOnly": true
+                                },
+                                "plug": "output",
+                                "group": "Values",
+                                "name": "siz",
+                                "index": 6
+                            },
+                            {
+                                "type": {
+                                    "name": "number",
+                                    "allowConnectionsOnly": true
+                                },
+                                "plug": "output",
+                                "group": "Values",
+                                "name": "2-img",
+                                "index": 7
+                            },
+                            {
+                                "plug": "input",
+                                "type": "number",
+                                "group": "big Values",
+                                "name": "value-big-siz",
+                                "displayName": "siz",
+                                "editorName": "big|siz",
+                                "index": 8
+                            },
+                            {
+                                "plug": "input",
+                                "type": "number",
+                                "group": "big Values",
+                                "name": "value-big-2-img",
+                                "displayName": "2-img",
+                                "editorName": "big|2-img",
+                                "index": 9
+                            },
+                            {
+                                "plug": "input",
+                                "type": {
+                                    "name": "enum",
+                                    "enums": [
+                                        {
+                                            "value": "easeOut",
+                                            "label": "Ease Out"
+                                        },
+                                        {
+                                            "value": "easeIn",
+                                            "label": "Ease In"
+                                        },
+                                        {
+                                            "value": "linear",
+                                            "label": "Linear"
+                                        },
+                                        {
+                                            "value": "easeInOut",
+                                            "label": "Ease In Out"
+                                        },
+                                        {
+                                            "value": "cubicBezier",
+                                            "label": "Cubic Bezier"
+                                        }
+                                    ]
+                                },
+                                "default": "easeOut",
+                                "displayName": "Easing Curve",
+                                "group": "big Transition",
+                                "name": "transition-big",
+                                "index": 10
+                            },
+                            {
+                                "plug": "input",
+                                "type": "number",
+                                "default": 300,
+                                "displayName": "Duration",
+                                "group": "big Transition",
+                                "name": "duration-big",
+                                "index": 11
+                            },
+                            {
+                                "plug": "input",
+                                "type": {
+                                    "name": "boolean",
+                                    "allowConnectionsOnly": true
+                                },
+                                "displayName": "To big",
+                                "name": "to-big",
+                                "group": "Go to state",
+                                "index": 12
+                            },
+                            {
+                                "plug": "output",
+                                "type": "boolean",
+                                "displayName": "At big",
+                                "name": "at-big",
+                                "group": "Current state",
+                                "index": 13
+                            },
+                            {
+                                "plug": "output",
+                                "type": "signal",
+                                "displayName": "Has Reached big",
+                                "name": "reached-big",
+                                "group": "Current state",
+                                "index": 14
+                            },
+                            {
+                                "plug": "input",
+                                "type": "number",
+                                "group": "small Values",
+                                "name": "value-small-siz",
+                                "displayName": "siz",
+                                "editorName": "small|siz",
+                                "index": 15
+                            },
+                            {
+                                "plug": "input",
+                                "type": "number",
+                                "group": "small Values",
+                                "name": "value-small-2-img",
+                                "displayName": "2-img",
+                                "editorName": "small|2-img",
+                                "index": 16
+                            },
+                            {
+                                "plug": "input",
+                                "type": {
+                                    "name": "enum",
+                                    "enums": [
+                                        {
+                                            "value": "easeOut",
+                                            "label": "Ease Out"
+                                        },
+                                        {
+                                            "value": "easeIn",
+                                            "label": "Ease In"
+                                        },
+                                        {
+                                            "value": "linear",
+                                            "label": "Linear"
+                                        },
+                                        {
+                                            "value": "easeInOut",
+                                            "label": "Ease In Out"
+                                        },
+                                        {
+                                            "value": "cubicBezier",
+                                            "label": "Cubic Bezier"
+                                        }
+                                    ]
+                                },
+                                "default": "easeOut",
+                                "displayName": "Easing Curve",
+                                "group": "small Transition",
+                                "name": "transition-small",
+                                "index": 17
+                            },
+                            {
+                                "plug": "input",
+                                "type": "number",
+                                "default": 300,
+                                "displayName": "Duration",
+                                "group": "small Transition",
+                                "name": "duration-small",
+                                "index": 18
+                            },
+                            {
+                                "plug": "input",
+                                "type": {
+                                    "name": "boolean",
+                                    "allowConnectionsOnly": true
+                                },
+                                "displayName": "To small",
+                                "name": "to-small",
+                                "group": "Go to state",
+                                "index": 19
+                            },
+                            {
+                                "plug": "output",
+                                "type": "boolean",
+                                "displayName": "At small",
+                                "name": "at-small",
+                                "group": "Current state",
+                                "index": 20
+                            },
+                            {
+                                "plug": "output",
+                                "type": "signal",
+                                "displayName": "Has Reached small",
+                                "name": "reached-small",
+                                "group": "Current state",
+                                "index": 21
+                            },
+                            {
+                                "plug": "input",
+                                "type": {
+                                    "name": "enum",
+                                    "enums": [
+                                        "big",
+                                        "small"
+                                    ]
+                                },
+                                "group": "States",
+                                "displayName": "Start at",
+                                "name": "startState",
+                                "default": "big",
+                                "index": 22
+                            }
+                        ],
+                        "children": []
+                    },
+                    {
+                        "id": "2aaed744-2fd9-ca63-9331-cbf4afbcb8ec",
+                        "type": "Counter",
+                        "x": 300.8169317000428,
+                        "y": 48.603999264799114,
+                        "parameters": {},
+                        "ports": [],
+                        "dynamicports": [],
+                        "children": []
+                    },
+                    {
+                        "id": "5c3e9833-c415-114b-8aab-88c743e20501",
+                        "type": "Timer",
+                        "x": 894.5505742637913,
+                        "y": 64.0126462180639,
+                        "parameters": {
+                            "duration": 1
+                        },
+                        "ports": [],
+                        "dynamicports": [],
+                        "children": []
+                    },
+                    {
+                        "id": "105869ac-456b-b087-90f9-922d7f00d41b",
+                        "type": "Timer",
+                        "x": 590.2354271821152,
+                        "y": -32.970439114794345,
+                        "parameters": {
+                            "duration": 500
+                        },
+                        "ports": [],
+                        "dynamicports": [],
+                        "children": []
+                    },
+                    {
+                        "id": "c1542816-0bdf-511f-cb4d-c033d33ac96f",
+                        "type": "Counter",
+                        "x": 133.5240989787902,
+                        "y": 291.5768021234912,
+                        "parameters": {},
+                        "ports": [],
+                        "dynamicports": [],
+                        "children": []
+                    },
+                    {
+                        "id": "90f28cab-47ce-a2a2-7b9c-9f587c77a06e",
+                        "type": "Expression",
+                        "x": 388.2686099579422,
+                        "y": 472.9196384137698,
+                        "parameters": {
+                            "expression": "count%4 == 0"
+                        },
+                        "ports": [],
+                        "dynamicports": [
+                            {
+                                "name": "count",
+                                "type": "number",
+                                "plug": "input",
+                                "index": 2
+                            }
+                        ],
+                        "children": []
+                    }
+                ]
+            }
+        },
+        {
+            "name": "/Ongaq",
+            "graph": {
+                "connections": [
+                    {
+                        "fromId": "3c2bbbce-a7c2-e96c-5eb1-3d1c97b282db",
+                        "fromProperty": "level1",
+                        "toId": "ef24638a-767d-ec4b-4e88-1777a59178ed",
+                        "toProperty": "level1"
+                    },
+                    {
+                        "fromId": "3c2bbbce-a7c2-e96c-5eb1-3d1c97b282db",
+                        "fromProperty": "level2",
+                        "toId": "ef24638a-767d-ec4b-4e88-1777a59178ed",
+                        "toProperty": "level2"
+                    },
+                    {
+                        "fromId": "3c2bbbce-a7c2-e96c-5eb1-3d1c97b282db",
+                        "fromProperty": "level3",
+                        "toId": "ef24638a-767d-ec4b-4e88-1777a59178ed",
+                        "toProperty": "level3"
+                    },
+                    {
+                        "fromId": "3c2bbbce-a7c2-e96c-5eb1-3d1c97b282db",
+                        "fromProperty": "start",
+                        "toId": "ef24638a-767d-ec4b-4e88-1777a59178ed",
+                        "toProperty": "start"
+                    },
+                    {
+                        "fromId": "ef24638a-767d-ec4b-4e88-1777a59178ed",
+                        "fromProperty": "lap",
+                        "toId": "a31a740f-89ce-34ad-3c28-5ea7014f637c",
+                        "toProperty": "lap"
+                    },
+                    {
+                        "fromId": "66291e79-190a-19be-55e3-f092f43ea073",
+                        "fromProperty": "apikey",
+                        "toId": "ef24638a-767d-ec4b-4e88-1777a59178ed",
+                        "toProperty": "apikey"
+                    },
+                    {
+                        "fromId": "717317ab-177d-a9ca-2e89-694457687c9f",
+                        "fromProperty": "savedValue",
+                        "toId": "66291e79-190a-19be-55e3-f092f43ea073",
+                        "toProperty": "apikey"
+                    }
+                ],
+                "roots": [
+                    {
+                        "id": "ef24638a-767d-ec4b-4e88-1777a59178ed",
+                        "type": "Javascript2",
+                        "label": "Ongaq.js",
+                        "x": -346.40011357140656,
+                        "y": -501.76374993504305,
+                        "parameters": {
+                            "code": "\ndefine({\n\t// The input ports of the Javascript node, name of input and type\n\tinputs:{\n\t    // ExampleInput:'number',\n\t    // Available types are 'number', 'string', 'boolean', 'color' and 'signal',\n\t    start:'signal',\n\t    level1: 'signal',\n\t    level2: 'signal',\n\t    level3: 'signal',\n\t    apikey: 'string'\n\t},\n\t\n\t// The output ports of the Javascript node, name of output and type\n\toutputs:{\n\t    // ExampleOutput:'string',\n\t    lap: \"signal\"\n\t},\n\t\n\t// All signal inputs need their own function with the corresponding name that\n\t// will be run when a signal is received on the input.\n\tstart:function(inputs,outputs) {\n\t\t// ...\n\t\tvar _this = this;\n        const ongaq = new Ongaq ({\n            api_key: inputs.apikey,\n            volume: 100,\n            bpm: 120,\n            onReady: ()=>{\n                ongaq.start();\n                \n                my_drums.willMakeLap = ({ nextLap, meanTime })=>{\n                    _this.sendSignalOnOutput(\"lap\");\n                }\n                \n                Noodl.eventEmitter.on(\"Tap\", function(eventData) {\n                    if(inputs.state == \"play\"){\n                        ongaq.start();\n                    }else{\n                        ongaq.pause();\n                    }\n                });\n                \n                Noodl.eventEmitter.on(\"level1\", function(eventData) {\n                    ongaq.add( my_synth );\n                    \n                });\n                Noodl.eventEmitter.on(\"level2\", function(eventData) {\n                    ongaq.add( my_drums2 );\n\n                });\n                \n                Noodl.eventEmitter.on(\"level3\", function(eventData) {\n                   ongaq.add( my_trumpet );\n                });\n            }\n        })\n        \n        const my_drums = new Part ({\n            sound: \"small_cube_drums\"\n        })\n        \n        const my_synth = new Part ({\n                        sound: \"plain_keyboard\",\n                        measure: 1\n                    })\n        \n        const my_drums2 = new Part ({\n            sound: \"my_band_drums\"\n            })\n        \n        const my_trumpet = new Part ({\n            sound: \"trumpet\"\n        })\n        \n        my_drums.add( \n            new Filter ({\n            key: \"kick\",\n            active: beat => beat%8 === 0\n        }))\n        \n        my_drums.add(\n        \tnew Filter ({\n        \t\tkey: \"hihat\",\n        \t\tactive: n => n % 16 === 4\n        \t})\n        )\n        \n        my_drums.add(\n        \tnew Filter ({\n        \t\tkey: \"tom2\",\n        \t\tactive: n => n % 16 === 4 ||n % 16 === 6 ||n % 16 === 8\n        }))\n        \n        \n        my_synth.add( \n            new Filter ({\n        \tkey: [ \"A2\", \"D2\"],\n        \tlength: 2,\n        \tactive: (beat, measure) => beat % 16 === 0 && measure === 0 || beat % 16 === 6 && measure === 0 || beat % 16 === 12 && measure === 0\n        }))\n\n        my_drums2.add( \n            new Filter ({\n            key: \"snare\",\n            active: beat => beat % 8 === 4\n        }))\n        \n        my_drums2.add( \n            new Filter ({\n            key: \"cymbal\",\n            active: beat => beat % 16 === 0\n        }))\n  \n        my_trumpet.add( new Filter ({\n        \tkey: [ \"G3\",\"G4\",\"G5\",\"G6\"],\n        \tlength: 16,\n        \tactive: (beat, measure) => beat % 16 === 0 && measure === 0\n        }))\n        \n        ongaq.add( my_drums );\n        \n        \n\t},\n\t\n\ttap:function(inputs,outputs) {\n\t    Noodl.eventEmitter.emit(\"Tap\");\n\t},\n\tlevel1:function(inputs,outputs) {\n\t    Noodl.eventEmitter.emit(\"level1\");\n\t},\n\tlevel2:function(inputs,outputs) {\n\t    Noodl.eventEmitter.emit(\"level2\");\n\t},\n\tlevel3:function(inputs,outputs) {\n\t    Noodl.eventEmitter.emit(\"level3\");\n\t},\n\t\n\t// This function will be called when any of the inputs have changed\n\tchange:function(inputs,outputs) {\n\t\t// ...\n\t}\n})\n",
+                            "useExternalFile": "no",
+                            "volume": 100,
+                            "apikey": ""
+                        },
+                        "ports": [],
+                        "dynamicports": [
+                            {
+                                "name": "start",
+                                "plug": "input",
+                                "type": {
+                                    "name": "signal"
+                                },
+                                "group": "Inputs",
+                                "index": 2
+                            },
+                            {
+                                "name": "level1",
+                                "plug": "input",
+                                "type": {
+                                    "name": "signal"
+                                },
+                                "group": "Inputs",
+                                "index": 3
+                            },
+                            {
+                                "name": "level2",
+                                "plug": "input",
+                                "type": {
+                                    "name": "signal"
+                                },
+                                "group": "Inputs",
+                                "index": 4
+                            },
+                            {
+                                "name": "level3",
+                                "plug": "input",
+                                "type": {
+                                    "name": "signal"
+                                },
+                                "group": "Inputs",
+                                "index": 5
+                            },
+                            {
+                                "name": "apikey",
+                                "plug": "input",
+                                "type": {
+                                    "name": "string"
+                                },
+                                "group": "Inputs",
+                                "index": 6
+                            },
+                            {
+                                "name": "lap",
+                                "type": {
+                                    "name": "signal"
+                                },
+                                "plug": "output",
+                                "group": "Outputs",
+                                "index": 7
+                            }
+                        ],
+                        "children": []
+                    },
+                    {
+                        "id": "3c2bbbce-a7c2-e96c-5eb1-3d1c97b282db",
+                        "type": "Component Inputs",
+                        "x": -628.0725071420817,
+                        "y": -482.50667230050874,
+                        "parameters": {},
+                        "ports": [
+                            {
+                                "name": "level1",
+                                "plug": "output",
+                                "type": {
+                                    "name": "*"
+                                },
+                                "index": 1
+                            },
+                            {
+                                "name": "level2",
+                                "plug": "output",
+                                "type": {
+                                    "name": "*"
+                                },
+                                "index": 2
+                            },
+                            {
+                                "name": "level3",
+                                "plug": "output",
+                                "type": {
+                                    "name": "*"
+                                },
+                                "index": 3
+                            },
+                            {
+                                "name": "start",
+                                "plug": "output",
+                                "type": {
+                                    "name": "*"
+                                },
+                                "index": 4
+                            }
+                        ],
+                        "dynamicports": [],
+                        "children": []
+                    },
+                    {
+                        "id": "a31a740f-89ce-34ad-3c28-5ea7014f637c",
+                        "type": "Component Outputs",
+                        "x": -121.62179218695144,
+                        "y": -419.32166372622356,
+                        "parameters": {},
+                        "ports": [
+                            {
+                                "name": "lap",
+                                "plug": "input",
+                                "type": {
+                                    "name": "*"
+                                },
+                                "index": 1
+                            }
+                        ],
+                        "dynamicports": [],
+                        "children": []
+                    },
+                    {
+                        "id": "66291e79-190a-19be-55e3-f092f43ea073",
+                        "type": "Globals",
+                        "x": -622.5314709668132,
+                        "y": -608.0306953205918,
+                        "parameters": {},
+                        "ports": [
+                            {
+                                "name": "apikey",
+                                "plug": "input/output",
+                                "type": {
+                                    "name": "*"
+                                },
+                                "index": 1
+                            }
+                        ],
+                        "dynamicports": [],
+                        "children": []
+                    },
+                    {
+                        "id": "717317ab-177d-a9ca-2e89-694457687c9f",
+                        "type": "String",
+                        "x": -396.53147096681323,
+                        "y": -653.0306953205918,
+                        "parameters": {
+                            "value": "APIキーを入力"
+                        },
+                        "ports": [],
+                        "dynamicports": [],
+                        "children": []
+                    }
+                ]
+            }
+        },
+        {
+            "name": "/Main",
+            "graph": {
+                "connections": [],
+                "roots": [
+                    {
+                        "id": "d4b2d907-88e5-03cc-98e3-a7007d18a2e7",
+                        "type": "Group",
+                        "x": 270.3942960953509,
+                        "y": 276.12347253474525,
+                        "parameters": {
+                            "backgroundColor": "#000000"
+                        },
+                        "ports": [],
+                        "dynamicports": [],
+                        "children": []
+                    }
+                ]
+            }
+        }
+    ],
+    "settings": {},
+    "rootNodeId": "d4b2d907-88e5-03cc-98e3-a7007d18a2e7",
+    "version": "1",
+    "metadata": {
+        "deviceSettings": {
+            "deviceTypes": [
+                {
+                    "name": "Web",
+                    "desc": "This is the default device that can be used to view the app from a browser.",
+                    "rootComponentPath": "/Main",
+                    "type": "Browser"
+                },
+                {
+                    "name": "Sample",
+                    "desc": "完成したサンプル",
+                    "rootComponentPath": "/Sample",
+                    "type": "Browser"
+                }
+            ]
+        },
+        "deviceInstances": []
+    }
+}
