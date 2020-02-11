@@ -1,0 +1,515 @@
+{
+    "name": "dragshimizu",
+    "components": [
+        {
+            "name": "/Main",
+            "graph": {
+                "connections": [
+                    {
+                        "fromId": "9e07ba7a-048b-fe80-7b3f-0bc7f1e0b72b",
+                        "fromProperty": "obniz",
+                        "toId": "da3b4a65-8ce6-081c-44de-a029f84cf33e",
+                        "toProperty": "obniz"
+                    },
+                    {
+                        "fromId": "d2184a5f-9ace-083b-9454-85e1f07eeef5",
+                        "fromProperty": "timerFinished",
+                        "toId": "da3b4a65-8ce6-081c-44de-a029f84cf33e",
+                        "toProperty": "timerFinished"
+                    },
+                    {
+                        "fromId": "da3b4a65-8ce6-081c-44de-a029f84cf33e",
+                        "fromProperty": "timerRestart",
+                        "toId": "d2184a5f-9ace-083b-9454-85e1f07eeef5",
+                        "toProperty": "restart"
+                    },
+                    {
+                        "fromId": "1e35ad5b-661e-c9d7-f363-057d0005c5e4",
+                        "fromProperty": "result",
+                        "toId": "da3b4a65-8ce6-081c-44de-a029f84cf33e",
+                        "toProperty": "x"
+                    },
+                    {
+                        "fromId": "99bf8ee4-5adf-d2d6-ba6f-de6f065e4e16",
+                        "fromProperty": "result",
+                        "toId": "da3b4a65-8ce6-081c-44de-a029f84cf33e",
+                        "toProperty": "y"
+                    },
+                    {
+                        "fromId": "f0b2ef52-756c-bc88-2b17-5e960ec589e8",
+                        "fromProperty": "positionY",
+                        "toId": "99bf8ee4-5adf-d2d6-ba6f-de6f065e4e16",
+                        "toProperty": "y"
+                    },
+                    {
+                        "fromId": "f0b2ef52-756c-bc88-2b17-5e960ec589e8",
+                        "fromProperty": "positionX",
+                        "toId": "1e35ad5b-661e-c9d7-f363-057d0005c5e4",
+                        "toProperty": "x"
+                    },
+                    {
+                        "fromId": "145be6bc-95c8-b153-fda6-5c6e1b220e02",
+                        "fromProperty": "savedValue",
+                        "toId": "d2184a5f-9ace-083b-9454-85e1f07eeef5",
+                        "toProperty": "start"
+                    },
+                    {
+                        "fromId": "da3b4a65-8ce6-081c-44de-a029f84cf33e",
+                        "fromProperty": "canvasImg",
+                        "toId": "1f261126-9bab-08cc-7c42-ebbfe50d559b",
+                        "toProperty": "src"
+                    }
+                ],
+                "roots": [
+                    {
+                        "id": "2d3ccd33-f1ef-2dc5-3e1a-ca9d61cd222b",
+                        "type": "Group",
+                        "label": "Root",
+                        "x": 583.3328027186387,
+                        "y": 69.2058312253377,
+                        "parameters": {
+                            "fill": "parent",
+                            "boxShadowEnabled": false,
+                            "backgroundColor": "#F0BF56"
+                        },
+                        "ports": [],
+                        "dynamicports": [],
+                        "children": [
+                            {
+                                "id": "94d5474a-a562-4a42-4dcf-6b739449b4fa",
+                                "type": "Text",
+                                "label": "TitleText",
+                                "x": 20,
+                                "y": 61,
+                                "parameters": {
+                                    "text": "DragShimizu",
+                                    "fontSize": {
+                                        "value": 30,
+                                        "unit": "px"
+                                    },
+                                    "alignY": "center",
+                                    "position": "relative",
+                                    "alignX": "center",
+                                    "marginTop": {
+                                        "value": 17,
+                                        "unit": "px"
+                                    },
+                                    "textAlign": "center",
+                                    "fontFamily": "Arial Black"
+                                },
+                                "ports": [],
+                                "dynamicports": [],
+                                "children": []
+                            },
+                            {
+                                "id": "aedae737-2d31-9c91-51c3-baa64145b297",
+                                "type": "Group",
+                                "label": "DragBg",
+                                "x": 20,
+                                "y": 122,
+                                "parameters": {
+                                    "backgroundColor": "#607972",
+                                    "height": {
+                                        "value": 128,
+                                        "unit": "px"
+                                    },
+                                    "width": {
+                                        "value": 256,
+                                        "unit": "px"
+                                    },
+                                    "marginTop": {
+                                        "value": 20,
+                                        "unit": "px"
+                                    },
+                                    "alignX": "center"
+                                },
+                                "ports": [],
+                                "dynamicports": [],
+                                "children": [
+                                    {
+                                        "id": "f0b2ef52-756c-bc88-2b17-5e960ec589e8",
+                                        "type": "Drag",
+                                        "x": 20,
+                                        "y": 61,
+                                        "parameters": {
+                                            "axis": "both"
+                                        },
+                                        "ports": [],
+                                        "dynamicports": [],
+                                        "children": [
+                                            {
+                                                "id": "55dc527e-20d4-3569-a921-9345fd3c278b",
+                                                "type": "Image",
+                                                "label": "Shimizusan",
+                                                "x": 20,
+                                                "y": 102,
+                                                "parameters": {
+                                                    "src": "shimizusan.png",
+                                                    "width": {
+                                                        "value": 96,
+                                                        "unit": "px"
+                                                    },
+                                                    "height": {
+                                                        "value": 96,
+                                                        "unit": "px"
+                                                    },
+                                                    "sizeMode": "explicit"
+                                                },
+                                                "ports": [],
+                                                "dynamicports": [],
+                                                "children": []
+                                            }
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "id": "43f89bb2-aeac-8a7d-b0ed-9693ab25f0c0",
+                                "type": "Group",
+                                "label": "Debug",
+                                "x": 20,
+                                "y": 346,
+                                "parameters": {
+                                    "height": {
+                                        "value": 50,
+                                        "unit": "%"
+                                    },
+                                    "marginTop": {
+                                        "value": -5,
+                                        "unit": "px"
+                                    }
+                                },
+                                "ports": [],
+                                "dynamicports": [],
+                                "children": [
+                                    {
+                                        "id": "1f261126-9bab-08cc-7c42-ebbfe50d559b",
+                                        "type": "Image",
+                                        "label": "DebugImage",
+                                        "x": 20,
+                                        "y": 61,
+                                        "parameters": {
+                                            "marginTop": {
+                                                "value": 93,
+                                                "unit": "px"
+                                            },
+                                            "zIndex": 5,
+                                            "position": "absolute",
+                                            "marginLeft": {
+                                                "value": -36,
+                                                "unit": "px"
+                                            },
+                                            "alignX": "center"
+                                        },
+                                        "ports": [],
+                                        "dynamicports": [],
+                                        "children": []
+                                    },
+                                    {
+                                        "id": "b78adf31-4b03-f5f6-1db6-29e0bf6bb229",
+                                        "type": "Image",
+                                        "label": "ObnizImage",
+                                        "x": 20,
+                                        "y": 158,
+                                        "parameters": {
+                                            "alignX": "center",
+                                            "src": "obnizboard-front.png",
+                                            "transformScale": 0.65,
+                                            "marginTop": {
+                                                "value": 46,
+                                                "unit": "px"
+                                            },
+                                            "transformOriginX": {
+                                                "value": 50,
+                                                "unit": "%"
+                                            },
+                                            "transformOriginY": {
+                                                "value": 0,
+                                                "unit": "%"
+                                            },
+                                            "position": "absolute",
+                                            "visible": true
+                                        },
+                                        "ports": [],
+                                        "dynamicports": [],
+                                        "children": []
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "id": "d2184a5f-9ace-083b-9454-85e1f07eeef5",
+                        "type": "Timer",
+                        "label": "Timer",
+                        "x": 40.0450567199843,
+                        "y": 419.52499101805944,
+                        "parameters": {
+                            "duration": 50
+                        },
+                        "ports": [],
+                        "dynamicports": [],
+                        "children": []
+                    },
+                    {
+                        "id": "145be6bc-95c8-b153-fda6-5c6e1b220e02",
+                        "type": "Boolean",
+                        "x": 39.20277618405788,
+                        "y": 533.8605794638454,
+                        "parameters": {
+                            "value": true
+                        },
+                        "ports": [],
+                        "dynamicports": [],
+                        "children": []
+                    },
+                    {
+                        "id": "1e35ad5b-661e-c9d7-f363-057d0005c5e4",
+                        "type": "Expression",
+                        "x": 420.2027761840579,
+                        "y": 212.86057946384545,
+                        "parameters": {
+                            "expression": "round(x / 2)"
+                        },
+                        "ports": [],
+                        "dynamicports": [
+                            {
+                                "name": "x",
+                                "type": "number",
+                                "plug": "input",
+                                "index": 2
+                            }
+                        ],
+                        "children": []
+                    },
+                    {
+                        "id": "99bf8ee4-5adf-d2d6-ba6f-de6f065e4e16",
+                        "type": "Expression",
+                        "x": 423.2027761840579,
+                        "y": 313.8605794638455,
+                        "parameters": {
+                            "expression": "round(y / 2)"
+                        },
+                        "ports": [],
+                        "dynamicports": [
+                            {
+                                "name": "y",
+                                "type": "number",
+                                "plug": "input",
+                                "index": 2
+                            }
+                        ],
+                        "children": []
+                    },
+                    {
+                        "id": "9e07ba7a-048b-fe80-7b3f-0bc7f1e0b72b",
+                        "type": "/Obniz",
+                        "x": 34.10692544549238,
+                        "y": 255.49151155645114,
+                        "parameters": {
+                            "obnizId": "1234-5678"
+                        },
+                        "ports": [],
+                        "dynamicports": [],
+                        "children": []
+                    },
+                    {
+                        "id": "da3b4a65-8ce6-081c-44de-a029f84cf33e",
+                        "type": "Javascript2",
+                        "x": 227.10692544549238,
+                        "y": 252.49151155645114,
+                        "parameters": {
+                            "code": "define({\n    inputs: {\n        obniz: 'object',\n        timerFinished: 'boolean',\n        x: 'number',\n        y: 'number',\n    },\n    outputs: {\n        canvasImg: 'image',\n        timerRestart: 'boolean',\n    },\n    setup: function(inputs, outputs) {\n        this.canvas = document.createElement('canvas');\n        this.canvas.width = 128;\n        this.canvas.height = 64;\n        this.ctx = this.canvas.getContext('2d');\n        this.img = new Image();\n        this.img.src = 'shimizusan-bw.png';\n        this.previous = { x: 0, y: 0 };\n    },\n    run: function(inputs, outputs, changedInputs) {\n        const {obniz, timerFinished, x, y} = inputs;\n        const {canvas, ctx, img, previous} = this;\n        outputs.timerRestart = timerFinished;\n        if(!obniz) return; // obnizへの接続が終わるまで待機\n\n        const isStatusChanged = x !== previous.x || y !== previous.y;\n        if(changedInputs.obniz || timerFinished === true && isStatusChanged) {\n            ctx.fillRect(0, 0, canvas.width, canvas.height);\n            ctx.drawImage(img, x, y);\n            obniz.display.draw(ctx);\n            outputs.canvasImg = canvas.toDataURL();\n            this.previous = { x, y };\n        }\n    }\n});\n"
+                        },
+                        "ports": [],
+                        "dynamicports": [
+                            {
+                                "name": "obniz",
+                                "plug": "input",
+                                "type": {
+                                    "name": "object"
+                                },
+                                "group": "Inputs",
+                                "index": 2
+                            },
+                            {
+                                "name": "timerFinished",
+                                "plug": "input",
+                                "type": {
+                                    "name": "boolean"
+                                },
+                                "group": "Inputs",
+                                "index": 3
+                            },
+                            {
+                                "name": "x",
+                                "plug": "input",
+                                "type": {
+                                    "name": "number"
+                                },
+                                "group": "Inputs",
+                                "index": 4
+                            },
+                            {
+                                "name": "y",
+                                "plug": "input",
+                                "type": {
+                                    "name": "number"
+                                },
+                                "group": "Inputs",
+                                "index": 5
+                            },
+                            {
+                                "name": "canvasImg",
+                                "type": {
+                                    "name": "image"
+                                },
+                                "plug": "output",
+                                "group": "Outputs",
+                                "index": 6
+                            },
+                            {
+                                "name": "timerRestart",
+                                "type": {
+                                    "name": "boolean"
+                                },
+                                "plug": "output",
+                                "group": "Outputs",
+                                "index": 7
+                            }
+                        ],
+                        "children": []
+                    }
+                ]
+            }
+        },
+        {
+            "name": "/Obniz",
+            "graph": {
+                "connections": [
+                    {
+                        "fromId": "8d299013-5116-c165-149f-986163e1d261",
+                        "fromProperty": "loaded",
+                        "toId": "a2671cf1-c81b-ccf5-5085-75c7f3f430df",
+                        "toProperty": "scriptsLoaded"
+                    },
+                    {
+                        "fromId": "19959548-27dd-553b-1d92-c117b5dc0613",
+                        "fromProperty": "obnizId",
+                        "toId": "a2671cf1-c81b-ccf5-5085-75c7f3f430df",
+                        "toProperty": "obnizId"
+                    },
+                    {
+                        "fromId": "a2671cf1-c81b-ccf5-5085-75c7f3f430df",
+                        "fromProperty": "obniz",
+                        "toId": "421a5ef8-9384-dca3-f47f-c78162fbf113",
+                        "toProperty": "obniz"
+                    }
+                ],
+                "roots": [
+                    {
+                        "id": "8d299013-5116-c165-149f-986163e1d261",
+                        "type": "Script Downloader",
+                        "x": 123,
+                        "y": 262,
+                        "parameters": {
+                            "input 0": "https://unpkg.com/obniz@3.2.0/obniz.js",
+                            "startLoad": true
+                        },
+                        "ports": [],
+                        "dynamicports": [],
+                        "children": []
+                    },
+                    {
+                        "id": "a2671cf1-c81b-ccf5-5085-75c7f3f430df",
+                        "type": "Javascript2",
+                        "x": 292.8001220223874,
+                        "y": 197.39078488490117,
+                        "parameters": {
+                            "code": "define({\n    inputs: {\n        obnizId: 'string',\n        scriptsLoaded: 'boolean',\n    },\n    outputs: {\n        obniz: 'object',\n    },\n    run: function(inputs, outputs, changedInputs) {\n        if(changedInputs.scriptsLoaded) {\n            const obniz = new Obniz(inputs.obnizId);\n            obniz.onconnect = () => {\n                outputs.obniz = obniz;\n                this.flagOutputDirty('obniz');\n            }\n        }\n    }\n});\n",
+                            "scriptsLoaded": false
+                        },
+                        "ports": [],
+                        "dynamicports": [
+                            {
+                                "name": "obnizId",
+                                "plug": "input",
+                                "type": {
+                                    "name": "string"
+                                },
+                                "group": "Inputs",
+                                "index": 2
+                            },
+                            {
+                                "name": "scriptsLoaded",
+                                "plug": "input",
+                                "type": {
+                                    "name": "boolean"
+                                },
+                                "group": "Inputs",
+                                "index": 3
+                            },
+                            {
+                                "name": "obniz",
+                                "type": {
+                                    "name": "object"
+                                },
+                                "plug": "output",
+                                "group": "Outputs",
+                                "index": 4
+                            }
+                        ],
+                        "children": []
+                    },
+                    {
+                        "id": "421a5ef8-9384-dca3-f47f-c78162fbf113",
+                        "type": "Component Outputs",
+                        "x": 478,
+                        "y": 194,
+                        "parameters": {},
+                        "ports": [
+                            {
+                                "name": "obniz",
+                                "plug": "input",
+                                "type": {
+                                    "name": "*"
+                                },
+                                "index": 1
+                            }
+                        ],
+                        "dynamicports": [],
+                        "children": []
+                    },
+                    {
+                        "id": "19959548-27dd-553b-1d92-c117b5dc0613",
+                        "type": "Component Inputs",
+                        "x": 124.9706527237505,
+                        "y": 164.5016632593812,
+                        "parameters": {},
+                        "ports": [
+                            {
+                                "name": "obnizId",
+                                "plug": "output",
+                                "type": {
+                                    "name": "*"
+                                },
+                                "index": 1
+                            }
+                        ],
+                        "dynamicports": [],
+                        "children": []
+                    }
+                ]
+            }
+        }
+    ],
+    "settings": {
+        "devices": "Default Device",
+        "Default Device.fillMode": "aspectFit",
+        "Default Device.canvasWidth": 1080,
+        "Default Device.canvasHeight": 1920
+    },
+    "rootNodeId": "2d3ccd33-f1ef-2dc5-3e1a-ca9d61cd222b",
+    "version": "1",
+    "metadata": {}
+}

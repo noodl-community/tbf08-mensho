@@ -1,0 +1,227 @@
+{
+    "name": "obniz-js-component-test",
+    "components": [
+        {
+            "name": "/Main",
+            "graph": {
+                "connections": [
+                    {
+                        "fromId": "40bf33c4-06db-0eaf-757c-30ebf3fb6d84",
+                        "fromProperty": "savedValue",
+                        "toId": "5789104f-357e-6ca5-31da-9546d5c549bb",
+                        "toProperty": "obnizId"
+                    },
+                    {
+                        "fromId": "5789104f-357e-6ca5-31da-9546d5c549bb",
+                        "fromProperty": "obniz",
+                        "toId": "0240c688-3be4-1f91-6728-c79c5cd786f3",
+                        "toProperty": "obniz"
+                    }
+                ],
+                "roots": [
+                    {
+                        "id": "2d3ccd33-f1ef-2dc5-3e1a-ca9d61cd222b",
+                        "type": "Group",
+                        "label": "Root",
+                        "x": 442.83824840966076,
+                        "y": 104.04437457836207,
+                        "parameters": {
+                            "fill": "parent",
+                            "boxShadowEnabled": false,
+                            "backgroundColor": "#FFFFFF"
+                        },
+                        "ports": [],
+                        "dynamicports": [],
+                        "children": []
+                    },
+                    {
+                        "id": "40bf33c4-06db-0eaf-757c-30ebf3fb6d84",
+                        "type": "String",
+                        "label": "INPUT YOUR OBNIZ ID",
+                        "x": -9,
+                        "y": 239.01082981427828,
+                        "parameters": {
+                            "value": "1234-5678"
+                        },
+                        "ports": [],
+                        "dynamicports": [],
+                        "children": []
+                    },
+                    {
+                        "id": "0240c688-3be4-1f91-6728-c79c5cd786f3",
+                        "type": "Javascript2",
+                        "x": 340.56656928958995,
+                        "y": 255.46585372109496,
+                        "parameters": {
+                            "code": "define({\n    inputs: {\n        obniz: 'object',\n    },\n    run: function(inputs, outputs, changedInputs) {\n        if(changedInputs.obniz) {\n            inputs.obniz.display.clear();\n            inputs.obniz.display.print('Hello obniz!');\n        }\n    }\n});\n",
+                            "useExternalFile": "no"
+                        },
+                        "ports": [],
+                        "dynamicports": [
+                            {
+                                "name": "obniz",
+                                "plug": "input",
+                                "type": {
+                                    "name": "object"
+                                },
+                                "group": "Inputs",
+                                "index": 2
+                            }
+                        ],
+                        "children": []
+                    },
+                    {
+                        "id": "5789104f-357e-6ca5-31da-9546d5c549bb",
+                        "type": "/Obniz",
+                        "x": 165.47035904696156,
+                        "y": 255.46585372109502,
+                        "parameters": {},
+                        "ports": [],
+                        "dynamicports": [],
+                        "children": []
+                    }
+                ]
+            }
+        },
+        {
+            "name": "/Obniz",
+            "graph": {
+                "connections": [
+                    {
+                        "fromId": "8d299013-5116-c165-149f-986163e1d261",
+                        "fromProperty": "loaded",
+                        "toId": "a2671cf1-c81b-ccf5-5085-75c7f3f430df",
+                        "toProperty": "scriptsLoaded"
+                    },
+                    {
+                        "fromId": "19959548-27dd-553b-1d92-c117b5dc0613",
+                        "fromProperty": "obnizId",
+                        "toId": "a2671cf1-c81b-ccf5-5085-75c7f3f430df",
+                        "toProperty": "obnizId"
+                    },
+                    {
+                        "fromId": "a2671cf1-c81b-ccf5-5085-75c7f3f430df",
+                        "fromProperty": "obniz",
+                        "toId": "421a5ef8-9384-dca3-f47f-c78162fbf113",
+                        "toProperty": "obniz"
+                    }
+                ],
+                "roots": [
+                    {
+                        "id": "8d299013-5116-c165-149f-986163e1d261",
+                        "type": "Script Downloader",
+                        "x": 123,
+                        "y": 262,
+                        "parameters": {
+                            "input 0": "https://unpkg.com/obniz@3.2.0/obniz.js",
+                            "startLoad": true
+                        },
+                        "ports": [],
+                        "dynamicports": [],
+                        "children": []
+                    },
+                    {
+                        "id": "a2671cf1-c81b-ccf5-5085-75c7f3f430df",
+                        "type": "Javascript2",
+                        "x": 292.8001220223874,
+                        "y": 197.39078488490117,
+                        "parameters": {
+                            "code": "define({\n    inputs: {\n        obnizId: 'string',\n        scriptsLoaded: 'boolean',\n    },\n    outputs: {\n        obniz: 'object',\n    },\n    run: function(inputs, outputs, changedInputs) {\n        if(changedInputs.scriptsLoaded) {\n            const obniz = new Obniz(inputs.obnizId);\n            obniz.onconnect = () => {\n                outputs.obniz = obniz;\n                this.flagOutputDirty('obniz');\n            }\n        }\n    }\n});\n",
+                            "scriptsLoaded": false
+                        },
+                        "ports": [],
+                        "dynamicports": [
+                            {
+                                "name": "obnizId",
+                                "plug": "input",
+                                "type": {
+                                    "name": "string"
+                                },
+                                "group": "Inputs",
+                                "index": 2
+                            },
+                            {
+                                "name": "scriptsLoaded",
+                                "plug": "input",
+                                "type": {
+                                    "name": "boolean"
+                                },
+                                "group": "Inputs",
+                                "index": 3
+                            },
+                            {
+                                "name": "obniz",
+                                "type": {
+                                    "name": "object"
+                                },
+                                "plug": "output",
+                                "group": "Outputs",
+                                "index": 4
+                            }
+                        ],
+                        "children": []
+                    },
+                    {
+                        "id": "421a5ef8-9384-dca3-f47f-c78162fbf113",
+                        "type": "Component Outputs",
+                        "x": 478,
+                        "y": 194,
+                        "parameters": {},
+                        "ports": [
+                            {
+                                "name": "obniz",
+                                "plug": "input",
+                                "type": {
+                                    "name": "*"
+                                },
+                                "index": 1
+                            }
+                        ],
+                        "dynamicports": [],
+                        "children": []
+                    },
+                    {
+                        "id": "19959548-27dd-553b-1d92-c117b5dc0613",
+                        "type": "Component Inputs",
+                        "x": 124.9706527237505,
+                        "y": 164.5016632593812,
+                        "parameters": {},
+                        "ports": [
+                            {
+                                "name": "obnizId",
+                                "plug": "output",
+                                "type": {
+                                    "name": "*"
+                                },
+                                "index": 1
+                            }
+                        ],
+                        "dynamicports": [],
+                        "children": []
+                    }
+                ]
+            }
+        }
+    ],
+    "settings": {
+        "devices": "Default Device",
+        "Default Device.fillMode": "aspectFit",
+        "Default Device.canvasWidth": 1080,
+        "Default Device.canvasHeight": 1920
+    },
+    "rootNodeId": "2d3ccd33-f1ef-2dc5-3e1a-ca9d61cd222b",
+    "version": "1",
+    "metadata": {
+        "deviceSettings": {
+            "deviceTypes": [
+                {
+                    "name": "web",
+                    "desc": "",
+                    "rootComponentPath": "/Main",
+                    "type": "Browser"
+                }
+            ]
+        },
+        "deviceInstances": []
+    }
+}
