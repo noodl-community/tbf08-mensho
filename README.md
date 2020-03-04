@@ -43,7 +43,7 @@ Gitを導入済みの方は、お好みの場所にクローンしてくださ�
 ![directory](img/directory.png)
 
 ### ライセンス
-[LICENCE](LICENCE)
+[LICENSE](LICENSE)
 
 ### お問い合わせ
-サンプルの動作について疑問や報告があれば、[issue](issues/new)を作成してお尋ねください。
+サンプルの動作について疑問や報告があれば、[issue](/../../issues/new)を作成してお尋ねください。
