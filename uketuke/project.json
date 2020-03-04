@@ -1,0 +1,566 @@
+{
+    "name": "Untitled",
+    "components": [
+        {
+            "name": "/uketuke",
+            "graph": {
+                "connections": [
+                    {
+                        "fromId": "75d61ef0-c0e4-1701-4715-6168339cf42f",
+                        "fromProperty": "onClick",
+                        "toId": "4adaeec9-be0c-69ce-58f2-734f6b26f822",
+                        "toProperty": "send"
+                    },
+                    {
+                        "fromId": "9f9b3f6a-6834-eadc-fa52-54307c17cb2a",
+                        "fromProperty": "onTextChanged",
+                        "toId": "4adaeec9-be0c-69ce-58f2-734f6b26f822",
+                        "toProperty": "name"
+                    },
+                    {
+                        "fromId": "28e6436f-b06b-13e9-14f5-0f8328b898ec",
+                        "fromProperty": "status",
+                        "toId": "40fb0c0f-a379-147d-c85d-6f949eb25031",
+                        "toProperty": "text"
+                    }
+                ],
+                "roots": [
+                    {
+                        "id": "eacc74e7-4dce-2baf-354b-8070e2b2b872",
+                        "type": "Group",
+                        "x": 136,
+                        "y": -117.5,
+                        "parameters": {
+                            "backgroundColor": "#FFFFFF"
+                        },
+                        "ports": [],
+                        "dynamicports": [],
+                        "children": [
+                            {
+                                "id": "40fb0c0f-a379-147d-c85d-6f949eb25031",
+                                "type": "Text",
+                                "x": 20,
+                                "y": 46,
+                                "parameters": {
+                                    "sizeMode": "contentSize",
+                                    "alignX": "center",
+                                    "alignY": "center",
+                                    "text": "Hello",
+                                    "color": "#171717",
+                                    "fontFamily": "Arial",
+                                    "position": "absolute",
+                                    "fontSize": {
+                                        "value": 30,
+                                        "unit": "px"
+                                    }
+                                },
+                                "ports": [],
+                                "dynamicports": [],
+                                "children": []
+                            },
+                            {
+                                "id": "9f9b3f6a-6834-eadc-fa52-54307c17cb2a",
+                                "type": "Text Input",
+                                "x": 20,
+                                "y": 92,
+                                "parameters": {
+                                    "fontSize": {
+                                        "value": 30,
+                                        "unit": "px"
+                                    },
+                                    "sizeMode": "contentHeight",
+                                    "width": {
+                                        "value": 80,
+                                        "unit": "%"
+                                    },
+                                    "position": "absolute",
+                                    "alignX": "center",
+                                    "alignY": "bottom",
+                                    "borderWidth": {
+                                        "value": 1,
+                                        "unit": "px"
+                                    },
+                                    "transformY": {
+                                        "value": -160,
+                                        "unit": "px"
+                                    }
+                                },
+                                "ports": [],
+                                "dynamicports": [],
+                                "children": []
+                            },
+                            {
+                                "id": "c7bbd103-74e4-2157-db09-417ff02d0f0b",
+                                "type": "Text",
+                                "x": 20,
+                                "y": 138,
+                                "parameters": {
+                                    "text": "お名前を入力して下さい。",
+                                    "fontSize": {
+                                        "value": 20,
+                                        "unit": "px"
+                                    },
+                                    "position": "absolute",
+                                    "alignX": "center",
+                                    "alignY": "center",
+                                    "transformY": {
+                                        "value": 50,
+                                        "unit": "px"
+                                    }
+                                },
+                                "ports": [],
+                                "dynamicports": [],
+                                "children": []
+                            },
+                            {
+                                "id": "75d61ef0-c0e4-1701-4715-6168339cf42f",
+                                "type": "Group",
+                                "x": 20,
+                                "y": 184,
+                                "parameters": {
+                                    "width": {
+                                        "value": 150,
+                                        "unit": "px"
+                                    },
+                                    "height": {
+                                        "value": 60,
+                                        "unit": "px"
+                                    },
+                                    "position": "absolute",
+                                    "alignX": "center",
+                                    "alignY": "bottom",
+                                    "transformY": {
+                                        "value": -20,
+                                        "unit": "px"
+                                    },
+                                    "backgroundColor": "#000000",
+                                    "borderRadius": 20
+                                },
+                                "ports": [],
+                                "dynamicports": [],
+                                "children": [
+                                    {
+                                        "id": "0eea45f1-4224-57e7-2aa0-e8ae1ca7f5b9",
+                                        "type": "Text",
+                                        "x": 73.19999999999999,
+                                        "y": 208.3,
+                                        "parameters": {
+                                            "sizeMode": "contentSize",
+                                            "text": "送信！",
+                                            "fontSize": {
+                                                "value": 35,
+                                                "unit": "px"
+                                            },
+                                            "color": "#FFFFFF",
+                                            "position": "absolute",
+                                            "alignX": "center",
+                                            "alignY": "center"
+                                        },
+                                        "ports": [],
+                                        "dynamicports": [],
+                                        "children": []
+                                    }
+                                ]
+                            },
+                            {
+                                "id": "d4b94cd0-f5a9-69af-af58-426978a2d306",
+                                "type": "Image",
+                                "x": 20,
+                                "y": 384,
+                                "parameters": {
+                                    "src": "清水さん.png",
+                                    "position": "absolute",
+                                    "alignX": "center",
+                                    "alignY": "top",
+                                    "sizeMode": "contentWidth",
+                                    "height": {
+                                        "value": 40,
+                                        "unit": "%"
+                                    },
+                                    "width": {
+                                        "value": 50,
+                                        "unit": "%"
+                                    }
+                                },
+                                "ports": [],
+                                "dynamicports": [],
+                                "children": []
+                            }
+                        ]
+                    },
+                    {
+                        "id": "4adaeec9-be0c-69ce-58f2-734f6b26f822",
+                        "type": "Send Message",
+                        "x": -63.80000000000001,
+                        "y": 175.3,
+                        "parameters": {
+                            "topic": "/pub"
+                        },
+                        "ports": [
+                            {
+                                "name": "name",
+                                "plug": "input",
+                                "type": {
+                                    "name": "*",
+                                    "allowConnectionOnly": true
+                                },
+                                "group": "Payload",
+                                "index": 1
+                            }
+                        ],
+                        "dynamicports": [],
+                        "children": []
+                    },
+                    {
+                        "id": "28e6436f-b06b-13e9-14f5-0f8328b898ec",
+                        "type": "Receive Message",
+                        "x": -79.85416236275555,
+                        "y": -7.669114389777803,
+                        "parameters": {
+                            "topic": "/sub"
+                        },
+                        "ports": [
+                            {
+                                "name": "status",
+                                "plug": "outputs",
+                                "type": {
+                                    "name": "*",
+                                    "allowConnectionOnly": true
+                                },
+                                "group": "Payload",
+                                "index": 1
+                            }
+                        ],
+                        "dynamicports": [],
+                        "children": []
+                    }
+                ]
+            }
+        },
+        {
+            "name": "/kanri",
+            "graph": {
+                "connections": [
+                    {
+                        "fromId": "9d62194d-bda2-8933-273f-a79eb8e219bf",
+                        "fromProperty": "items",
+                        "toId": "23ae1c24-0667-1791-d278-5f79dd8cf2c5",
+                        "toProperty": "items"
+                    },
+                    {
+                        "fromId": "23ae1c24-0667-1791-d278-5f79dd8cf2c5",
+                        "fromProperty": "items",
+                        "toId": "6a9537e8-7711-25fc-ecd8-bf8f7dc7853a",
+                        "toProperty": "items"
+                    },
+                    {
+                        "fromId": "23ae1c24-0667-1791-d278-5f79dd8cf2c5",
+                        "fromProperty": "items",
+                        "toId": "8aa89c1f-1b54-0116-b89d-7769f9bb2f4d",
+                        "toProperty": "data"
+                    },
+                    {
+                        "fromId": "89d2bbb3-fc83-54ea-9f42-c4ebfe3b9c25",
+                        "fromProperty": "name",
+                        "toId": "8aa89c1f-1b54-0116-b89d-7769f9bb2f4d",
+                        "toProperty": "name"
+                    },
+                    {
+                        "fromId": "8aa89c1f-1b54-0116-b89d-7769f9bb2f4d",
+                        "fromProperty": "state",
+                        "toId": "1dd83ad6-a2d3-dc65-a4b5-9b050e0a8150",
+                        "toProperty": "status"
+                    },
+                    {
+                        "fromId": "8aa89c1f-1b54-0116-b89d-7769f9bb2f4d",
+                        "fromProperty": "trig",
+                        "toId": "1dd83ad6-a2d3-dc65-a4b5-9b050e0a8150",
+                        "toProperty": "send"
+                    }
+                ],
+                "roots": [
+                    {
+                        "id": "3bf30146-579b-2c9e-30da-494ec7ef3b8f",
+                        "type": "Group",
+                        "x": 252,
+                        "y": 92.0333333333333,
+                        "parameters": {
+                            "backgroundColor": "#EF8F45"
+                        },
+                        "ports": [],
+                        "dynamicports": [],
+                        "children": [
+                            {
+                                "id": "6a9537e8-7711-25fc-ecd8-bf8f7dc7853a",
+                                "type": "For Each",
+                                "x": 20,
+                                "y": 46,
+                                "parameters": {
+                                    "template": "/parts"
+                                },
+                                "ports": [],
+                                "dynamicports": [],
+                                "children": []
+                            }
+                        ]
+                    },
+                    {
+                        "id": "9d62194d-bda2-8933-273f-a79eb8e219bf",
+                        "type": "Static Data",
+                        "x": -130.7759412640325,
+                        "y": 141.09149561902805,
+                        "parameters": {
+                            "csv": "id,表示名\r\n01,りんご\r\n02,みかん\r\n03,ゆず\r\n04,清水さん"
+                        },
+                        "ports": [],
+                        "dynamicports": [],
+                        "children": []
+                    },
+                    {
+                        "id": "23ae1c24-0667-1791-d278-5f79dd8cf2c5",
+                        "type": "Collection",
+                        "x": 66.37210819046314,
+                        "y": 125.00160845022708,
+                        "parameters": {
+                            "collectionId": "user"
+                        },
+                        "ports": [],
+                        "dynamicports": [],
+                        "children": []
+                    },
+                    {
+                        "id": "8aa89c1f-1b54-0116-b89d-7769f9bb2f4d",
+                        "type": "Javascript2",
+                        "x": 92.86417696968655,
+                        "y": 293.33306825969544,
+                        "parameters": {
+                            "code": "define({\r\n  \t// The input ports of the Javascript node, name of input and type\r\n  \tinputs:{\r\n  \t    // ExampleInput:'number',\r\n  \t    // Available types are 'number', 'string', 'boolean', 'color' and 'signal',\r\n  \t    data:'collection',\r\n  \t    name:'string',\r\n  \t},\r\n\r\n  \t// The output ports of the Javascript node, name of output and type\r\n  \toutputs:{\r\n  \t    state:'string',\r\n  \t    trig:'boolean',\r\n  \t},\r\n\r\n  \t// All signal inputs need their own function with the corresponding name that\r\n  \t// will be run when a signal is received on the input.\r\n  \tmySignal:function(inputs,outputs) {\r\n  \t\t// ...\r\n  \t},\r\n\r\n  \t// This function will be called when any of the inputs have changed\r\n  \tchange:function(inputs,outputs) {\r\n  \t\t// ...\r\n  \t\tvar i;\r\n  \t\tvar w_this = this;\r\n\r\n        console.log(\"入力データ [\" + inputs.name + \"]\");\r\n\r\n  \t\tfor(i=0; i<inputs.data.items.length; i++)\r\n  \t\t{\r\n  \t\t    for(var key in inputs.data.items[0].data)\r\n  \t\t    {\r\n  \t\t        if(key === \"表示名\")\r\n  \t\t        {\r\n  \t\t            console.log(inputs.data.items[i].data[key]);\r\n  \t\t            if(inputs.data.items[i].data[key] === inputs.name)\r\n  \t\t            {\r\n  \t\t                console.log(\"認証されました\");\r\n  \t\t                outputs.state = \"認証されました！\";\r\n  \t\t                w_this.sendSignalOnOutput(\"trig\");\r\n  \t\t                return;\r\n  \t\t            }\r\n  \t\t        }\r\n  \t\t        console.log(i);\r\n  \t\t    }\r\n  \t\t}\r\n  \t\tconsole.log(\"認証失敗\");\r\n  \t\toutputs.state = \"認証失敗\";\r\n  \t\tw_this.sendSignalOnOutput(\"trig\");\r\n  \t}\r\n  })"
+                        },
+                        "ports": [],
+                        "dynamicports": [
+                            {
+                                "name": "data",
+                                "plug": "input",
+                                "type": {
+                                    "name": "collection"
+                                },
+                                "group": "Inputs",
+                                "index": 2
+                            },
+                            {
+                                "name": "name",
+                                "plug": "input",
+                                "type": {
+                                    "name": "string"
+                                },
+                                "group": "Inputs",
+                                "index": 3
+                            },
+                            {
+                                "name": "state",
+                                "type": {
+                                    "name": "string"
+                                },
+                                "plug": "output",
+                                "group": "Outputs",
+                                "index": 4
+                            },
+                            {
+                                "name": "trig",
+                                "type": {
+                                    "name": "boolean"
+                                },
+                                "plug": "output",
+                                "group": "Outputs",
+                                "index": 5
+                            }
+                        ],
+                        "children": []
+                    },
+                    {
+                        "id": "89d2bbb3-fc83-54ea-9f42-c4ebfe3b9c25",
+                        "type": "Receive Message",
+                        "x": -127.80237866662102,
+                        "y": 300.3383557402133,
+                        "parameters": {
+                            "topic": "/pub"
+                        },
+                        "ports": [
+                            {
+                                "name": "name",
+                                "plug": "outputs",
+                                "type": {
+                                    "name": "*",
+                                    "allowConnectionOnly": true
+                                },
+                                "group": "Payload",
+                                "index": 1
+                            }
+                        ],
+                        "dynamicports": [],
+                        "children": []
+                    },
+                    {
+                        "id": "1dd83ad6-a2d3-dc65-a4b5-9b050e0a8150",
+                        "type": "Send Message",
+                        "x": 286.677130597343,
+                        "y": 282.825137038919,
+                        "parameters": {
+                            "topic": "/sub"
+                        },
+                        "ports": [
+                            {
+                                "name": "status",
+                                "plug": "input",
+                                "type": {
+                                    "name": "*",
+                                    "allowConnectionOnly": true
+                                },
+                                "group": "Payload",
+                                "index": 1
+                            }
+                        ],
+                        "dynamicports": [],
+                        "children": []
+                    }
+                ]
+            }
+        },
+        {
+            "name": "/parts",
+            "graph": {
+                "connections": [
+                    {
+                        "fromId": "62d92e16-e835-df1f-934a-927d8c6ef6a6",
+                        "fromProperty": "itemId",
+                        "toId": "641245ef-9451-591c-9d27-ee4ebc192488",
+                        "toProperty": "modelId"
+                    },
+                    {
+                        "fromId": "641245ef-9451-591c-9d27-ee4ebc192488",
+                        "fromProperty": "表示名",
+                        "toId": "cded559a-2aef-37ee-76ef-9834b2d2d585",
+                        "toProperty": "text"
+                    }
+                ],
+                "roots": [
+                    {
+                        "id": "dae6b391-b48b-bb77-e3c9-8a9f5ed49436",
+                        "type": "Group",
+                        "x": 330,
+                        "y": 180,
+                        "parameters": {
+                            "paddingTop": 0,
+                            "marginTop": {
+                                "value": 5,
+                                "unit": "px"
+                            },
+                            "marginRight": {
+                                "value": 5,
+                                "unit": "px"
+                            },
+                            "marginBottom": {
+                                "value": 5,
+                                "unit": "px"
+                            },
+                            "marginLeft": {
+                                "value": 5,
+                                "unit": "px"
+                            },
+                            "backgroundColor": "#FFFFFF",
+                            "width": {
+                                "value": 100,
+                                "unit": "%"
+                            },
+                            "height": {
+                                "value": 100,
+                                "unit": "%"
+                            }
+                        },
+                        "ports": [],
+                        "dynamicports": [],
+                        "children": [
+                            {
+                                "id": "cded559a-2aef-37ee-76ef-9834b2d2d585",
+                                "type": "Text",
+                                "x": 256,
+                                "y": 192,
+                                "parameters": {},
+                                "ports": [],
+                                "dynamicports": [],
+                                "children": []
+                            }
+                        ]
+                    },
+                    {
+                        "id": "62d92e16-e835-df1f-934a-927d8c6ef6a6",
+                        "type": "For Each Actions",
+                        "x": 104,
+                        "y": 171,
+                        "parameters": {},
+                        "ports": [],
+                        "dynamicports": [],
+                        "children": []
+                    },
+                    {
+                        "id": "641245ef-9451-591c-9d27-ee4ebc192488",
+                        "type": "Model",
+                        "x": 157,
+                        "y": 316,
+                        "parameters": {
+                            "modelId": "user",
+                            "properties": "表示名"
+                        },
+                        "ports": [],
+                        "dynamicports": [
+                            {
+                                "type": {
+                                    "name": "*",
+                                    "allowConnectionsOnly": true
+                                },
+                                "plug": "input/output",
+                                "group": "Properties",
+                                "name": "表示名",
+                                "index": 6
+                            }
+                        ],
+                        "children": []
+                    }
+                ]
+            }
+        }
+    ],
+    "settings": {},
+    "rootNodeId": "eacc74e7-4dce-2baf-354b-8070e2b2b872",
+    "version": "1",
+    "metadata": {
+        "deviceSettings": {
+            "deviceTypes": [
+                {
+                    "name": "uketuke",
+                    "desc": "",
+                    "rootComponentPath": "/uketuke",
+                    "type": "Browser"
+                },
+                {
+                    "name": "kanri",
+                    "desc": "",
+                    "rootComponentPath": "/kanri",
+                    "type": "Browser"
+                }
+            ]
+        },
+        "deviceInstances": [
+            {
+                "deviceName": "uketuke",
+                "running": false,
+                "runtime": "Browser"
+            },
+            {
+                "deviceName": "kanri",
+                "running": false,
+                "runtime": "Browser"
+            }
+        ]
+    }
+}
