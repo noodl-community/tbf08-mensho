@@ -6,7 +6,7 @@
 
  ディレクトリ                 | 対応する章
 ----------------------------|-----------
-|[XXX](XXX)                 |第2章 受付嬢（システム）をプロトタイピング！|
+|[uketuke](uketuke)                 |第2章 受付嬢（システム）をプロトタイピング！|
 |[balanceball](balanceball) |第3章 Ongaq.jsとmicro:bitを使ってアゲアゲ⤴︎なものを作ろう|
 |[DragShimizu](DragShimizu) |第4章 Noodlからobniz上の清水さんを動かす|
 |[abyss](abyss)             |第5章 清水をのぞくとき清水もまたこちらをのぞいているのだ|
